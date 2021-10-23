@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket-Test</title>
+    
+  </head>
+  <body style="background-color: white">
+    <div id="log" style="cursor: pointer">Log</div>
+  </body>
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script type="text/javascript" charset="utf-8">
+     
+        var namespace = "/test";
+        var socket = io(namespace);
+
+        socket.on("connect", function () {
+        //   socket.emit("my_event", { data: "connected to the SocketServer..." });
+        });
+
+        document.getElementById("log").addEventListener("click", () => {
+            socket.emit("my_event", { data: "connected to the SocketServer..." });
+
+          socket.on("my_response", function (msg, cb) {
+            document.getElementById("log").textContent = msg.count;
+            if (cb) cb();
+          });
+        });
+     
+    </script>
